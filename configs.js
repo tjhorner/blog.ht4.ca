@@ -8,7 +8,7 @@ var configs = {
   'staticDir': __dirname + '/public',
   'templatesDir': __dirname + '/templates',
   'articlesDir': __dirname + '/articles',
-  'host': (env == 'dev') ? '127.0.0.1' : 'blog.ht4.ca',
+  'host': '127.0.0.1',
   'port': '8080',
   'baseUrl': (env == 'dev') ? 'http://127.0.0.1:8080' : 'http://blog.ht4.ca',
   'encoding': 'utf8',
