@@ -1,0 +1,146 @@
+/* Common frame */
+
+a, a:visited {
+  color: black;
+}
+
+a:active {
+  color: #666;
+}
+
+body {
+  font-family: "minion-pro-1", "minion-pro-2", Palatino, Georgia, "Times New Roman", serif;
+}
+
+body > header {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  bottom: 0px;
+  width: 160px;
+  background-color: #EAEAEA;
+  border-right: solid 1px #D9D9D9;
+  color: black;
+  padding: 20px;
+}
+
+body > header h1 {
+  margin-bottom: 20px;
+  font-size: 140%;
+}
+
+body > header a {
+  color: black;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+body > header span {
+  line-height: 120%;
+}
+
+section#content {
+  padding-left: 221px;
+  padding-right: 20px;
+  padding-top: 20px;
+}
+
+body > footer {
+  padding-left: 201px;
+  padding-bottom: 20px;
+  padding-top: 20px;
+  text-align: center;
+}
+
+/* Articles listing */
+
+section.articles {
+  margin-bottom: 10px;
+}
+
+article.post {
+  margin-bottom: 60px;
+}
+
+article.post header {
+  margin-bottom: 20px;
+}
+
+article.post header h1 {
+  color: black;
+  font-size: 170%;
+  margin-bottom: 10px;
+}
+
+article.post header h1 a {
+  text-decoration: none;
+}
+
+article.post header span {
+  display: block;
+  padding-bottom: 5px;
+}
+
+article.post section.content {
+  margin-bottom: 20px;
+  font-size: 120%;
+  line-height: 160%;
+}
+
+article.post section.content a {
+  color: #0000ff;
+}
+
+article.post section.content p, pre {
+  margin: 20px 0;
+}
+
+article.post section.content code {
+  color: #222;
+  background-color: #f7f7f7;
+  border: 1px solid #ccc;
+  padding: 2px;
+}
+
+article.post section.content pre {
+  color: #222;
+  background-color: #f7f7f7;
+  padding: 10px;
+  border: 1px solid #ccc;
+  overflow: auto;
+}
+
+article.post section.content pre code {
+  padding: 0 !important;
+  border: none !important;
+}
+
+article.post footer span.comments-link a {
+  
+}
+
+a.back_to_blog {
+  display: block;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+nav.paging {
+  margin-bottom: 40px;
+}
+
+nav.paging a {
+  font-weight: bold;
+}
+
+nav.paging a.next {
+  float: right;
+}
+
+/* Disqus */
+
+
+a.dsq-brlink {
+  display: block;
+  text-align: center;
+}

@@ -1,0 +1,21 @@
+%section.articles
+  - each article in articles
+    %article.post
+      %header
+        %h1
+          %a{href: article.permalink()}= article.title()
+        %span
+          Posted
+          %time{datetime: article.date().isoformat(), pubdate: 'pubdate'}= article.date().pretty()
+          - if (article.meta('author'))
+            = ' by ' + article.meta('author')
+      %section.content
+        != article.body()
+      %footer
+        - if (configs.disqus)
+          %span.comments-link
+            %a{href: article.permalink() + '#disqus_thread', title: 'Comment on ' + article.title(), dataDisqusIdentifier: article.permalink(true)}
+              Comments
+%nav.paging
+  %a.previous{href: '#'} &laquo; Newer entries
+  %a.next{href: '#'} Older entries &raquo;

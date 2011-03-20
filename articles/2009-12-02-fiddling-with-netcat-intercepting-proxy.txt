@@ -1,0 +1,48 @@
+title: Fiddling with netcat - intercepting proxy
+author: cody
+
+A couple of days ago Chris needed a way to see how a particular client was interacting with a server. Obviously there are numerous ways to do this, but I was curious how easy it would be to implement something similar with a quick [netcat](http://en.wikipedia.org/wiki/Netcat) command. Sure enough after a little bit of fiddling I was able to produce exactly what he needed.
+
+    nc -l -p 12345 < pipe | tee outgoing.log | nc server 12345 | tee pipe incoming.log
+
+Now this may seem a little cryptic so I'm going to dissect each portion to explain how it works. Keep in mind the `pipe` references an actual [pipe](http://en.wikipedia.org/wiki/Named_pipe). You can make a FIFO pipe by running `mkfifo pipe` or `mknod pipe p` - the former is the most usual way. If you're not familiar with named pipes I recommend [reading up on them](http://en.wikipedia.org/wiki/Named_pipe) before continuing with this post as you may get a little confused.
+
+    nc -l -p 12345 < pipe
+
+This portion simply has netcat listen on port 12345 and send anything from the pipe to the connected client. If you're not familiar with the pipes think of it as a simple file with the word `hello` in it. When someone were to successfully connect to the netcat instance it would send the `hello` to the client.
+
+
+    | tee outgoing.log
+
+If you're not familiar with [tee](http://unixhelp.ed.ac.uk/CGI/man-cgi?tee) this may seem a bit obscure. Tee prints the things piped to it to stdout as well as writing it to a file. In this instance any traffic from the connected client will get printed to stdout and to the file `outgoing.log`. An example of how this would work is if I connected to the netcat instance and simply typed `hello` it would print it out to the screen and log it to the `outgoing.log` file.
+
+    | nc server 12345
+
+This is the server that you would normally want to connect to. Remember the goal is to make a quick intercepting proxy to see how the client reacts to the server. This is the server.
+
+    | tee pipe incoming.log
+
+Here is where the magic happens. This completes the relay so the client and server can communicate across the proxy. What this does is takes the network traffic from the server and using tee prints it to stdout while piping it to our `pipe` and `incoming.log` files respectively.
+
+Now all of this may make sense individually, though how they work together might be slightly confusing.
+
+If you recall the first command sends all data from our `pipe` to the client - and at the end we pipe all data from the server to the `pipe`. See now? We're simply taking all data the server send and sending it to the client completing the relay and allowing for normal operation.
+
+Now in this case Chris needed this for a quick look at how a normal IRC client interacts with the server since the RFC is lacking - so here is a real world example of where this was used (though there's likely infinite better ways to do it):
+
+    nc -l -p 12345 < pipe | tee outgoing.log | nc irc.freenode.net 6667 | tee pipe incoming.log
+
+You'll notice when you execute the above command you'll start seeing some traffic from the server instantly:
+
+    NOTICE AUTH :*** Looking up your hostname...
+    NOTICE AUTH :*** Checking ident
+    NOTICE AUTH :*** No identd (auth) response
+    NOTICE AUTH :*** Couldn't look up your hostname
+
+Now we connect to the netcat server - in this case localhost on port 12345 and if everything goes as planned it should connect like normal to Freenode. If you take a peak at the netcat server you'll see a bunch of activity!
+
+The cool part is the logs - we can see exactly how this particular IRC client (IRSSI) and server (Freenode) interact.
+
+Once again this isn't the best way to do this - tcpdump, wireshark and infinite other choices are available. That being said it's fun to fiddle and learn.
+
+-Cody Robertson
