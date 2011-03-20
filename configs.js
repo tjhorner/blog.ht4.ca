@@ -1,4 +1,8 @@
-var env = 'dev';
+var env = 'prod';
+
+if (process.argv.indexOf('--dev') != -1) {
+  env = 'dev';
+}
 
 var configs = {
   'title': 'ht4',
