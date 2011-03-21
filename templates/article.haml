@@ -4,9 +4,11 @@
     %h1= article.title()
     %span
       Posted
-      %time{datetime: article.date().isoformat(), pubdate: 'pubdate'}= article.date().pretty()
+      %time{datetime: article.date().isoformat(), pubdate: 'pubdate'}
+        %a{href: article.permalink()}= article.date().pretty()
       - if (article.meta('author'))
-        = ' by ' + article.meta('author')
+        = ' by '
+        %a{href: '#todo'}= article.meta('author')
   %section.content
     != article.body()
   %footer
