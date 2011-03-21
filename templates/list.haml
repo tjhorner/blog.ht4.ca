@@ -17,5 +17,7 @@
             %a{href: article.permalink() + '#disqus_thread', title: 'Comment on ' + article.title(), dataDisqusIdentifier: article.permalink(true)}
               Comments
 %nav.paging
-  %a.previous{href: '#'} &laquo; Newer entries
-  %a.next{href: '#'} Older entries &raquo;
+  - if (paging.previous)
+    %a.previous{href: paging.previous} &laquo; Newer entries
+  - if (paging.next)
+    %a.next{href: paging.next} Older entries &raquo;
