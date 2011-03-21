@@ -50,6 +50,7 @@ body > footer {
   padding-bottom: 20px;
   padding-top: 20px;
   text-align: center;
+  font-size: 90%;
 }
 
 /* Articles listing */
@@ -57,6 +58,18 @@ body > footer {
 section.articles {
   margin-bottom: 10px;
 }
+
+section.articles > h1 {
+  margin-bottom: 60px;
+  font-weight: normal;
+  font-size: 140%;
+}
+
+section.articles > h1 span {
+
+}
+
+/* Article */
 
 article.post {
   margin-bottom: 60px;
@@ -119,6 +132,8 @@ article.post footer span.comments-link a {
   
 }
 
+/* Nav Tools */
+
 a.back_to_blog {
   display: block;
   margin-bottom: 20px;
@@ -138,7 +153,6 @@ nav.paging a.next {
 }
 
 /* Disqus */
-
 
 a.dsq-brlink {
   display: block;

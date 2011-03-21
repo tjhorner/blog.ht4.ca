@@ -1,4 +1,9 @@
 %section.articles
+  - if (action == 'archives')
+    %a.back_to_blog{href: configs.baseUrl} &laquo; Back to blog
+    %h1
+      = archivesType + ' Archives: '
+      %span= archivesLabel
   - each article in articles
     %article.post
       %header
@@ -6,9 +11,11 @@
           %a{href: article.permalink()}= article.title()
         %span
           Posted
-          %time{datetime: article.date().isoformat(), pubdate: 'pubdate'}= article.date().pretty()
+          %time{datetime: article.date().isoformat(), pubdate: 'pubdate'}
+            %a{href: article.permalink()}= article.date().pretty()
           - if (article.meta('author'))
-            = ' by ' + article.meta('author')
+            = ' by '
+            %a{href: '#todo'}= article.meta('author')
       %section.content
         != article.body()
       %footer
