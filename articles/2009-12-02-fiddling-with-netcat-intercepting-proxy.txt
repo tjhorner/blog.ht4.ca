@@ -1,7 +1,7 @@
 title: Fiddling with netcat - intercepting proxy
 author: cody
 
-A couple of days ago Chris needed a way to see how a particular client was interacting with a server. Obviously there are numerous ways to do this, but I was curious how easy it would be to implement something similar with a quick [netcat](http://en.wikipedia.org/wiki/Netcat) command. Sure enough after a little bit of fiddling I was able to produce exactly what he needed.
+A couple of days ago Chris needed a way to see how a particular client was interacting with a server. Obviously there are numerous ways to do this, but I was curious how easy it would be to implement something similar with a quick [netcat](http://en.wikipedia.org/wiki/Netcat) command. Sure enough after a little bit of fiddling I was able to produce exactly what he needed.<!-- more -->
 
     nc -l -p 12345 < pipe | tee outgoing.log | nc server 12345 | tee pipe incoming.log
 

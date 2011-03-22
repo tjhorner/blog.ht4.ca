@@ -17,12 +17,11 @@
             = ' by '
             %a{href: '#todo'}= article.meta('author')
       %section.content
-        != article.body()
+        != markdown(summary(article.body()))
       %footer
         - if (configs.disqus)
           %span.comments-link
-            %a{href: article.permalink() + '#disqus_thread', title: 'Comment on ' + article.title(), dataDisqusIdentifier: article.permalink(true)}
-              Comments
+            %a{href: article.permalink()} Read More...
 %nav.paging
   - if (paging.previous)
     %a.previous{href: paging.previous} &laquo; Newer entries
