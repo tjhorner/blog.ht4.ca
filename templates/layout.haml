@@ -13,7 +13,16 @@
     %header
       %h1
         %a{href: configs.baseUrl}= configs.title
-      %span= configs.description
+      %div.desc= configs.description
+      %div.authors
+        %section.author{itemscope: 'itemscope', itemtype: 'http://data-vocabulary.org/Person'}
+          %h1{itemprop: 'name'} Christian Joudrey
+          %div{itemprop: 'title'} Web Developer
+          %a{href: 'http://twitter.com/cjoudrey', itemprop: 'url'} @cjoudrey
+        %section.author{itemscope: 'itemscope', itemtype: 'http://data-vocabulary.org/Person'}
+          %h1{itemprop: 'name'} Cody Robertson
+          %div{itemprop: 'title'} Sysadmin
+          %a{href: 'http://twitter.com/hawkhost', itemprop: 'url'} @hawkhost
     %section#content
       != body
     %footer

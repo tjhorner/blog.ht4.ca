@@ -2,7 +2,7 @@ var env = process.env.NODE_ENV || 'production';
 
 var configs = {
   'title': 'ht4',
-  'description': 'thoughts of a developer and a sysadmin',
+  'description': 'thoughts of a web developer and a sysadmin',
   'env': env,
   'favicon': __dirname + '/public/favicon.ico',
   'staticDir': __dirname + '/public',

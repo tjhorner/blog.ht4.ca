@@ -24,19 +24,29 @@ body > header {
   padding: 20px;
 }
 
-body > header h1 {
+body > header > h1 {
   margin-bottom: 20px;
   font-size: 140%;
 }
 
-body > header a {
+body > header > h1 a {
   color: black;
   text-transform: uppercase;
   text-decoration: none;
 }
 
-body > header span {
+body > header div.desc {
   line-height: 120%;
+}
+
+body > header section.author {
+  margin-top: 20px;
+  line-height: 120%;
+}
+
+body > header .authors {
+  margin-top: 20px;
+  border-top: 1px solid black;
 }
 
 section#content {
