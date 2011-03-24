@@ -1,4 +1,4 @@
-title: Disecting Google Thumbnails
+title: Disecting Google thumbnails
 author: Chris
 
 Today I had an itch to look into how Google generates those gorgeous thumbnails when you do a search.
