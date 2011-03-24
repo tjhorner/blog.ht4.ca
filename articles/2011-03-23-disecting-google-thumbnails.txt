@@ -10,7 +10,7 @@ The first thing I discovered is that the thumbnails are only loaded the first ti
 
 # JSONP /webpagethumbnail request
 
-After your first click on the magnifying glass, 10 JSONP calls (1 per search result) are made to `http://clients1.google.com/webpagethumbnail`.
+After your first click the magnifying glass, 10 JSONP calls (1 per search result) are made to `http://clients1.google.com/webpagethumbnail`.
 
 An example request for my search query `site:reddit.com programming`:
 
@@ -27,7 +27,7 @@ An example request for my search query `site:reddit.com programming`:
     j=google.vs.r
     a=IFs
 
-There are a few values that are hardcoded in the page's HTML before the results are even loaded, namely the thumbnail size `s` and locale values `hl` and `gl`:
+There are a few values that are hardcoded in the page's HTML (before the search results are even loaded), namely the thumbnail size `s` and locale values `hl` and `gl`:
 
 `"kfeUrlPrefix":"/webpagethumbnail?c=11&r=2&f=2&s=300:585&query=&hl=en&gl=ca"`
 
@@ -36,13 +36,13 @@ The next values are what interest me though:
 - `query` only contains the keyword I searched and not my entire query `site:reddit.com programming`. I find this particularly interesting as this "slicing" logic seems to be done client-side.
 - `d` contains the full URL of the given result item.
 - `j` contains the JSONP callback function
-- `a` contains a 3 character checksum (from what I concluded) that is obtained with the results HTML (in this case `IFs`):
+- `a` contains a 3 character checksum to prevent 3rd party requests (from what I concluded) that is obtained with the results HTML (in this case `IFs`):
 
 <img src="http://i.imgur.com/UXiE2.png"/ >
 
 # JSONP /webpagethumbnail response
 
-The first thing I noticed is that the thumbnails are sent with a expiry time of 1 day from a server running `snapshot_btfe`. No surprise there.
+The thumbnails are sent with a expiry time of 1 day from a server running `snapshot_btfe`. No surprise there.
 
 The structure of the returned JSON goes as follows:
 
