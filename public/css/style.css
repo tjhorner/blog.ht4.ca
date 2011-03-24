@@ -138,6 +138,15 @@ article.post section.content pre code {
   border: none !important;
 }
 
+article.post section.content p img {
+  max-width: 100%;
+  border: 1px solid black;
+}
+
+article.post section.content ul {
+    margin-left: 20px;
+}
+
 article.post footer span.comments-link a {
   
 }
