@@ -15,7 +15,7 @@
             %a{href: article.permalink()}= article.date().pretty()
           - if (article.meta('author'))
             = ' by '
-            %a{href: '#todo'}= article.meta('author')
+            = article.meta('author')
       %section.content
         != markdown(summary(article.body()))
       %footer

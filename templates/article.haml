@@ -8,7 +8,7 @@
         %a{href: article.permalink()}= article.date().pretty()
       - if (article.meta('author'))
         = ' by '
-        %a{href: '#todo'}= article.meta('author')
+        = article.meta('author')
       - if (configs.disqus)
         = ' | '
         %a{href: article.permalink() + '#disqus_thread', title: 'Comment on ' + article.title(), dataDisqusIdentifier: article.permalink(true)} 0 Comments
