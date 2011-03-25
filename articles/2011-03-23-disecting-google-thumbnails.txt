@@ -1,7 +1,7 @@
-title: Disecting Google thumbnails
+title: Dissecting Google thumbnails
 author: Chris
 
-Today I had an itch to look into how Google generates those gorgeous thumbnails when you do a search.
+Today I had an itch to look into how Google generates the preview thumbnails when you do a search.
 
 <img src="http://i.imgur.com/NhS6D.png"/><!-- more -->
 
@@ -43,7 +43,7 @@ The next values are what interest me though:
 
 # JSONP /webpagethumbnail response
 
-The thumbnails are sent with a expiry time of 1 day from a server running `snapshot_btfe`. No surprise there.
+The thumbnails are sent with a expiry time of 1 day from a server running `snapshot_btfe` (likely the codename of their thumbnail server). No surprise there.
 
 The structure of the returned JSON goes as follows:
 
