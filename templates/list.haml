@@ -19,9 +19,8 @@
       %section.content
         != markdown(summary(article.body()))
       %footer
-        - if (configs.disqus)
-          %span.comments-link
-            %a{href: article.permalink()} Read More...
+        %span.more-link
+          %a{href: article.permalink()} Read More...
 %nav.paging
   - if (paging.previous)
     %a.previous{href: paging.previous} &laquo; Newer entries
