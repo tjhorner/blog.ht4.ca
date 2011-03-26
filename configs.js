@@ -14,7 +14,8 @@ var configs = {
   'encoding': 'utf8',
   'perPage': 5,
   'googleAnalytics': (env == 'dev') ? 'UX-XXXXX-X' : 'UA-11235343-3',
-  'disqus': (env == 'dev') ? 'tinybloglocaldev' : 'ht4'
+  'disqus': (env == 'dev') ? 'tinybloglocaldev' : 'ht4',
+  'feedburner': (env == 'dev') ? false : 'ht4'
 };
 
 exports = module.exports = configs;

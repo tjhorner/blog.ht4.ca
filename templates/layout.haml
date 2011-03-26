@@ -9,6 +9,7 @@
       = configs.title
     %link{rel: 'stylesheet', href: configs.baseUrl + '/css/reset.css'}
     %link{rel: 'stylesheet', href: configs.baseUrl + '/css/style.css'}
+    %link{rel: 'alternate', type: 'application/rss+xml', title: configs.title + ' RSS Feed', href: configs.feedburner ? 'http://feeds.feedburner.com/' + configs.feedburner : configs.baseUrl + '/feed.xml'}
   %body
     %header
       %h1
