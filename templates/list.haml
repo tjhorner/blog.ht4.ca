@@ -11,8 +11,8 @@
           %a{href: article.permalink()}= article.title()
         %span
           Posted
-          %time{datetime: article.date().isoformat(), pubdate: 'pubdate'}
-            %a{href: article.permalink()}= article.date().pretty()
+          %time{datetime: isoDate(article.date()), pubdate: 'pubdate'}
+            %a{href: article.permalink()}= prettyDate(article.date())
           - if (article.meta('author'))
             = ' by '
             = article.meta('author')
