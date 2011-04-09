@@ -13,6 +13,7 @@ var configs = {
   'baseUrl': (env == 'dev') ? 'http://127.0.0.1:8080' : 'http://blog.ht4.ca',
   'encoding': 'utf8',
   'perPage': 5,
+  'rss': true,
   'googleAnalytics': (env == 'dev') ? 'UX-XXXXX-X' : 'UA-11235343-3',
   'disqus': (env == 'dev') ? 'tinybloglocaldev' : 'ht4',
   'feedburner': (env == 'dev') ? false : 'ht4'
