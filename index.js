@@ -2,7 +2,7 @@
 var typhoon = require('typhoon');
 
 // Add custom helpers
-// typhoon.Helpers.hello = function() { return 'world'; };
+//typhoon.helpers.hello = function() { return 'world'; };
 
 // Start server
-typhoon(__dirname, require('./configs'));
+typhoon.app(__dirname, require('./configs'));

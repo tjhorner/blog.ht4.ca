@@ -1,4 +1,4 @@
-var env = process.env.NODE_ENV || 'production';
+var env = process.env.NODE_ENV || 'development';
 
 var configs = {
   'title': 'ht4',
@@ -6,17 +6,17 @@ var configs = {
   'env': env,
   'favicon': __dirname + '/public/favicon.ico',
   'staticDir': __dirname + '/public',
-  'templatesDir': __dirname + '/templates',
+  'viewsDir': __dirname + '/views',
   'articlesDir': __dirname + '/articles',
   'host': '127.0.0.1',
   'port': '8080',
-  'baseUrl': (env == 'dev') ? 'http://127.0.0.1:8080' : 'http://blog.ht4.ca',
+  'baseUrl': (env == 'development') ? 'http://127.0.0.1:8080' : 'http://blog.ht4.ca',
   'encoding': 'utf8',
   'perPage': 5,
   'rss': true,
-  'googleAnalytics': (env == 'dev') ? 'UX-XXXXX-X' : 'UA-11235343-3',
-  'disqus': (env == 'dev') ? 'tinybloglocaldev' : 'ht4',
-  'feedburner': (env == 'dev') ? false : 'ht4'
+  'googleAnalytics': (env == 'development') ? 'UX-XXXXX-X' : 'UA-11235343-3',
+  'disqus': (env == 'development') ? 'tinybloglocaldev' : 'ht4',
+  'feedburner': (env == 'development') ? false : 'ht4'
 };
 
 exports = module.exports = configs;

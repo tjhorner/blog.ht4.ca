@@ -1,0 +1,50 @@
+!!! 5
+html(lang='en')
+  head
+    meta(charset='utf-8')
+    meta(httpEquiv='X-UA-Compatible', content='IE=edge,chrome=1')
+    title
+      - if (typeof(title) != 'undefined')
+        = title
+        != ' &laquo; '
+      = configs.title
+    link(rel='stylesheet', href=configs.baseUrl + '/css/reset.css')
+    link(rel='stylesheet', href=configs.baseUrl + '/css/style.css')
+    - if (configs.rss)
+      link(rel='alternate', type='application/rss+xml', title=configs.title + ' RSS Feed', href=configs.feedburner ? 'http://feeds.feedburner.com/' + configs.feedburner : configs.baseUrl + '/feed.xml')
+  body
+    header
+      h1
+        a(href=configs.baseUrl)= configs.title
+      div.desc= configs.description
+      div.authors
+        section.author(itemscope='itemscope', itemtype='http://data-vocabulary.org/Person')
+          h1(itemprop='name') Christian Joudrey
+          div(itemprop='title') Web Developer
+          a(href='http://twitter.com/cjoudrey', itemprop='url') @cjoudrey
+        section.author(itemscope='itemscope', itemtype='http://data-vocabulary.org/Person')
+          h1(itemprop='name') Cody Robertson
+          div(itemprop='title') Sysadmin
+          a(href='http://twitter.com/hawkhost', itemprop='url') @hawkhost
+    section#content
+      != body
+    footer
+      != 'Copyright &copy; ' + (new Date()).getUTCFullYear() + ' ' + configs.title + '.'
+      = ' Powered by '
+      a(href='https://github.com/cjoudrey/typhoon') Typhoon
+      = '.'
+    - if (configs.googleAnalytics)
+      script= "var _gaq=[['_setAccount','" + configs.googleAnalytics + "'],['_trackPageview']];"
+      script(type='text/javascript')
+        (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
+        g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+        s.parentNode.insertBefore(g,s)}(document,'script'));
+    - if (configs.disqus)
+      script= "var disqus_shortname = '" + configs.disqus + "';"
+      script(type='text/javascript')
+        (function () {
+          var s = document.createElement('script'); s.async = true;
+          s.type = 'text/javascript';
+          s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+          (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
