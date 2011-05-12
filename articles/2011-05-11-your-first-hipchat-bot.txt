@@ -76,7 +76,7 @@ Here is a simple example of a echo bot:
 
 # Conclusion
 
-The goal of this article was a to briefly introduce wobot.
+The goal of this article was to briefly introduce wobot.
 
 There are many [more examples](https://github.com/cjoudrey/wobot/tree/master/examples) and [detailed documentation](https://github.com/cjoudrey/wobot/blob/master/README.md) on GitHub.
 
