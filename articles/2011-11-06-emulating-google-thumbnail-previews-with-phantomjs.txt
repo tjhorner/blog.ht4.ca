@@ -1,0 +1,67 @@
+title: Emulating Google thumbnail previews with PhantomJS
+author: Chris
+
+Earlier this week [I noticed](https://twitter.com/#!/cjoudrey/status/132132881467322368) that Google pushed a new version of their thumbnail previews. Having played with [PhantomJS](http://phantomjs.org/) for the past few months I feel obliged to build my own version.<!-- more -->
+
+#Goal
+
+Given a URL and a query string, the end result is being able to reproduce this:
+
+![ss](http://i.imgur.com/VE3j5.png)
+
+To simplify the task at hand, I will take for granted that the search engine has already given us a URL and the terms to highlight on the page.
+
+#PhantomJS
+
+For those of you who have never heard of [PhantomJS](http://phantomjs.org), it's essentially a command-line tool that [embeds WebKit](http://doc.qt.nokia.com/4.7/qtwebkit.html#details) which you can control with a [JavaScript API](http://code.google.com/p/phantomjs/wiki/Interface). In other words, it acts like any other WebKit-based web browser, except that nothing gets displayed to the screen.
+
+We will be using [PhantomJS](http://phantomjs.org) to render a screenshot of the URL and to obtain the coordinates of the elements we want to highlight.
+
+#Searching the DOM for text
+
+The easiest way (that I found) to search for text in the DOM is by using [`window.find`](https://developer.mozilla.org/en/DOM/window.find). Although there is [talks about removing the function](https://bugzilla.mozilla.org/show_bug.cgi?id=672395), it remains an elegant solution to our problem.
+
+[`window.find`](https://developer.mozilla.org/en/DOM/window.find) will return `true` if the string is found on the page and will create [a selection](https://developer.mozilla.org/en/nsISelection) with the text.
+
+The neat part about this function is that it will search across multiple DOM elements.
+
+For example, `window.find('hello world')` would return `true` for this HTML:
+
+    <p>hello <a href='#'>world</a></p>
+
+Here's [a working example](http://jsfiddle.net/7YDkY/):
+
+![ss](http://i.imgur.com/JuDF1.png)
+
+#Obtaining the container element
+
+Now that our text is selected, we want to find the element that wraps our text.
+
+This can be done as so:
+
+    var node = window.getSelection()
+                     .getRangeAt(0)
+                     .commonAncestorContainer;
+
+Here's [a working example](http://jsfiddle.net/7YDkY/1/):
+
+![ss](http://i.imgur.com/I6mCB.png)
+
+There is one small issue with this solution. `commonAncestorContainer` will be a `Text` node if the selection isn't composed of the entire text of a node. For instance, if our selection is `hello`.
+
+To correct this we simply need to check if we are dealing with a `Text` node. If so, we will use the `parentElement`.
+
+Thus [we have our solution](http://jsfiddle.net/7YDkY/2/):
+
+![ss](http://i.imgur.com/DYM77.png)
+
+We can now calculate a rectangle that will encompass our element.
+
+    var rect = {
+        x:      node.offsetLeft,
+        y:      node.offsetTop,
+        width:  node.offsetWidth,
+        height: node.offsetHeight
+    };
+
+-Christian Joudrey
