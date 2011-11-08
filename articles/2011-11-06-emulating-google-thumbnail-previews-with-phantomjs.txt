@@ -1,23 +1,17 @@
 title: Emulating Google thumbnail previews with PhantomJS
 author: Chris
 
-Earlier this week [I noticed](https://twitter.com/#!/cjoudrey/status/132132881467322368) that Google pushed a new version of their thumbnail previews. Having played with [PhantomJS](http://phantomjs.org/) for the past few months I feel obliged to build my own version.<!-- more -->
+Earlier this week I noticed that Google pushed a new version of their thumbnail previews. Having played with [PhantomJS](http://phantomjs.org/) for the past few months I felt obliged to hack my own version up.<!-- more -->
 
 #Goal
 
 Given a URL and a query string, the end result is being able to reproduce this:
 
-![ss](http://i.imgur.com/VE3j5.png)
-
-To simplify the task at hand, I will take for granted that the search engine has already given us a URL and the terms to highlight on the page.
-
-#PhantomJS
-
-For those of you who have never heard of [PhantomJS](http://phantomjs.org), it's essentially a command-line tool that [embeds WebKit](http://doc.qt.nokia.com/4.7/qtwebkit.html#details) which you can control with a [JavaScript API](http://code.google.com/p/phantomjs/wiki/Interface). In other words, it acts like any other WebKit-based web browser, except that nothing gets displayed to the screen.
-
-We will be using [PhantomJS](http://phantomjs.org) to render a screenshot of the URL and to obtain the coordinates of the elements we want to highlight.
+![ss](http://i.imgur.com/5Jq8E.png)
 
 #Searching the DOM for text
+
+The first thing we need is to find the coordinates of the element we want to highlight.
 
 The easiest way (that I found) to search for text in the DOM is by using [`window.find`](https://developer.mozilla.org/en/DOM/window.find). Although there is [talks about removing the function](https://bugzilla.mozilla.org/show_bug.cgi?id=672395), it remains an elegant solution to our problem.
 
@@ -33,6 +27,8 @@ Here's [a working example](http://jsfiddle.net/7YDkY/):
 
 ![ss](http://i.imgur.com/JuDF1.png)
 
+Calling `window.find` a second time will attempt to find the next result on the page.
+
 #Obtaining the container element
 
 Now that our text is selected, we want to find the element that wraps our text.
@@ -43,9 +39,11 @@ This can be done as so:
                      .getRangeAt(0)
                      .commonAncestorContainer;
 
+<!--
 Here's [a working example](http://jsfiddle.net/7YDkY/1/):
 
 ![ss](http://i.imgur.com/I6mCB.png)
+-->
 
 There is one small issue with this solution. `commonAncestorContainer` will be a `Text` node if the selection isn't composed of the entire text of a node. For instance, if our selection is `hello`.
 
@@ -55,13 +53,33 @@ Thus [we have our solution](http://jsfiddle.net/7YDkY/2/):
 
 ![ss](http://i.imgur.com/DYM77.png)
 
-We can now calculate a rectangle that will encompass our element.
+We can now calculate a rectangle that will enclose our element.
 
-    var rect = {
-        x:      node.offsetLeft,
-        y:      node.offsetTop,
-        width:  node.offsetWidth,
-        height: node.offsetHeight
-    };
+    var clipRect = node.getBoundingClientRect();
+
+`clipRect` essentially contains the dimensions and absolute position of the node.
+
+#PhantomJS
+
+For those of you who have never heard of [PhantomJS](http://phantomjs.org), it's essentially a command-line tool that [embeds WebKit](http://doc.qt.nokia.com/4.7/qtwebkit.html#details) which you can control with a [JavaScript API](http://code.google.com/p/phantomjs/wiki/Interface). In other words, it acts like any other WebKit-based web browser, except that nothing gets displayed to the screen.
+
+If you don't already have PhantomJS installed, you can find build instructions [here](http://code.google.com/p/phantomjs/wiki/BuildInstructions).
+
+We will be using [PhantomJS](http://phantomjs.org) to render a screenshot of the URL and to obtain the coordinates of the elements we want to highlight.
+
+You can run a JavaScript script using `phantomjs script.js`.
+
+#Rendering a screenshot of a URL
+
+    var page = require('webpage').create();
+    page.viewportSize = { width: 1280, height: 1024 };
+    page.open('http://google.ca', function (status) {
+        if (status !== 'success') {
+    		console.log('Failed to load URL');
+            phantom.exit();
+        }
+        page.render('screenshot.png');
+        phantom.exit();
+    });
 
 -Christian Joudrey
